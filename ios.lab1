@@ -1,0 +1,78 @@
+enum SmartphoneOS {
+    case iOS
+    case Android
+    case WindowsPhone
+}
+
+class Smartphone {
+    var model: String
+    var storageCapacity: Int?
+    var supports5G: Bool?
+    var operatingSystem: SmartphoneOS
+    
+    init(model: String, storageCapacity: Int?, supports5G: Bool?, operatingSystem: SmartphoneOS) {
+        self.model = model
+        self.storageCapacity = storageCapacity
+        self.supports5G = supports5G
+        self.operatingSystem = operatingSystem
+    }
+    
+    func displayInfo() {
+        smartphoneDetails(smartphone: self)
+    }
+}
+
+func smartphoneDetails(smartphone: Smartphone) {
+    print("Model: \(smartphone.model)")
+    
+    if let capacity = smartphone.storageCapacity {
+        print("Storage Capacity: \(capacity) GB")
+    } else {
+        print("Storage Capacity: Not specified")
+    }
+    
+    if let is5GSupported = smartphone.supports5G {
+        print("Supports 5G: \(is5GSupported ? "Yes" : "No")")
+    } else {
+        print("Supports 5G: Not specified")
+    }
+    
+    print("Operating System: \(smartphone.operatingSystem)")
+}
+
+let phone1 = Smartphone(model: "iPhone 13", storageCapacity: 256, supports5G: true, operatingSystem: .iOS)
+let phone2 = Smartphone(model: "Samsung Galaxy S21", storageCapacity: nil, supports5G: true, operatingSystem: .Android)
+let phone3 = Smartphone(model: "Nokia Lumia", storageCapacity: 128, supports5G: false, operatingSystem: .WindowsPhone)
+
+let smartphones = [phone1, phone2, phone3]
+
+for phone in smartphones {
+    phone.displayInfo()
+    print("------------------")
+}
+
+class Owner {
+    var name: String
+    var smartphone: Smartphone?
+    
+    init(name: String, smartphone: Smartphone?) {
+        self.name = name
+        self.smartphone = smartphone
+    }
+    
+    func displaySmartphoneInfo() {
+        if let phone = smartphone {
+            print("\(name) owns the following smartphone:")
+            phone.displayInfo()
+        } else {
+            print("\(name) does not own a smartphone.")
+        }
+    }
+}
+
+let owner1 = Owner(name: "John", smartphone: phone1)
+let owner2 = Owner(name: "Anna", smartphone: nil)
+
+owner1.displaySmartphoneInfo()
+print("------------------")
+owner2.displaySmartphoneInfo()
